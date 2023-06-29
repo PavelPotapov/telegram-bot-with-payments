@@ -4,8 +4,8 @@ import requests
 import json
 
 
-tocken = '5782454726:AAEc19f0oofh7I2GLhTrnF9qPDp48XLW3cA'
-VAL_PRICE_URL_ = 'https://www.cbr-xml-daily.ru/daily_json.js'
+tocken = ''
+VAL_PRICE_URL_ = ''
 
 #создаем объект приложения бота
 bot = telebot.TeleBot(tocken)

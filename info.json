@@ -1,0 +1,9 @@
+{
+    "ali": ["ali25", "ali35"],
+    "ozon": ["ozon25", "ozon35"],
+    "wb": ["wb25 - Скидка 25 процентов", "wb35 - Скидка 35 процентов"],
+    "ebay": ["ebay25", "ebay35"],
+    "mvideo":["mvideo25", "mvideo35"],
+    "eldorado":["eldorado25", "eldorado35"],
+    "amazon":["amazon25", "amazon35"]    
+}

@@ -1,0 +1,40 @@
+import telebot
+from telebot import types #это позволит нам добавить кнопки и не только
+import requests
+from config import *
+
+
+#создаем объект приложения бота
+bot = telebot.TeleBot(tocken)
+
+def get_currency(key_vallet):
+    result = requests.get(VAL_PRICE_URL_)
+    result = result.json()
+    return [result['Valute'][key_vallet]['Name'], result['Valute'][key_vallet]['Value'], result['Valute'][key_vallet]['Previous']]
+
+#обработчик сообщений
+@bot.message_handler(commands=["start"])
+def start(message):
+    #print('!Это работет сообщение пришло!', message)
+    markup = types.ReplyKeyboardMarkup() #типа клавиатура из кнопок
+    button1 = types.KeyboardButton('USD')
+    button2 = types.KeyboardButton('EUR')
+    markup.add(button1)
+    markup.add(button2)
+    bot.send_message(message.from_user.id, 'Привет!', reply_markup=markup)
+
+@bot.message_handler(content_types=['text'])
+def get_text_message(message):
+    if message.text == 'USD':
+        result = get_currency('USD')
+        result_text = 'Валюта: ' + str(result[0]) + '\nТекущий курс: ' + str(result[1]) + '\nПрошлый курс: ' + str(result[2])
+        bot.send_message(message.from_user.id, result_text)
+    elif message.text == 'EUR':
+        result = get_currency('EUR')
+        result_text = 'Валюта: ' + str(result[0]) + '\nТекущий курс: ' + str(result[1]) + '\nПрошлый курс: ' + str(result[2])
+        bot.send_message(message.from_user.id, result_text)
+    else:
+        bot.send_message(message.from_user.id, message.text)
+
+
+bot.polling(non_stop=True, interval=0)
